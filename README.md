@@ -1,2 +1,3 @@
 # ds-elixir-cz
-ELIXIR-CZ Data Stewardship web
+
+http://elixir-cz.fairdata.solution web portal
