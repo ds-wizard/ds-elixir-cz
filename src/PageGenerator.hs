@@ -32,7 +32,7 @@ renderHead = H.head $ do
     H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
     H.link ! A.rel "stylesheet" ! A.href (textValue $ staticURL <> "css/normalize.min.css")
     H.link ! A.rel "stylesheet" ! A.href ( textValue $ staticURL <> "css/main.css")
-    H.script ! A.src (textValue $ staticURL <> "js/vendor/jquery-3.1.0.min.js") $ mempty
+    H.script ! A.src (textValue $ staticURL <> "js/vendor/jquery.js") $ mempty
 
 renderBanner :: Html
 renderBanner = H.div ! A.id "banner" $ do

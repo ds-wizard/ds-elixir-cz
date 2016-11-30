@@ -23,7 +23,7 @@ chapterDiagLoadHandler chapterElem _ = do
 
 generateQuestionnaire :: [FormElement] -> IO ()
 generateQuestionnaire tabs = do
-  formJq <- select "#m_questionnaire_form"
+  formJq <- select "#m_questionnaire_form" 
   let allTabs = aboutTab : tabs
   _ <- renderTabGroup allTabs (aboutTabPaneJq : tabsContentsJq tabs) formJq
   _ <- selectTab 0 allTabs
@@ -34,7 +34,7 @@ generateQuestionnaire tabs = do
       where
         makePaneJq :: FormElement -> IO JQuery
         makePaneJq tab =
-          select "<div class='main-pane'>"
+          select "<div class='main-pane'></div>"
           >>= makeFormSubPane
           >>= makeDescSubPane
           where
@@ -56,13 +56,12 @@ generateQuestionnaire tabs = do
               setAttrInside "id" (descSubpaneId tab) >>=
               inside >>=
               loadDiagram 
---              >>= appendT "<p class='long-desc'>" >>=
---              setAttrInside "id" (descSubpaneParagraphId tab)
---              >>= inside
---              >>= appendT
---                    "<img src='/elixir-questionnaire/static/img/hint-icon.png' style='margin-right: 5px;'>"
---              >>= appendT "<span/>"
---              >>= JQ.parent
+              >>= appendT "<p class='long-desc'>" >>=
+              setAttrInside "id" (descSubpaneParagraphId tab)
+              >>= inside
+              >>= appendT ("<img src='" <> staticURL <> "/img/hint-icon.png' style='margin-right: 5px;'>")
+              >>= appendT "<span/>"
+              >>= JQ.parent
               >>= JQ.parent
               where
                 loadDiagram :: JQuery -> IO JQuery
