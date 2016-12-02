@@ -17,7 +17,7 @@ import           Config.Config (staticURL)
 --import Haste.DOM
 
 chapterDiagLoadHandler :: FormElement -> Handler
-chapterDiagLoadHandler chapterElem _ = do
+chapterDiagLoadHandler chapterElem _ = 
   --  resizeDescriptions
   tinkerDiagramForChapterElement chapterElem
 
@@ -42,7 +42,11 @@ generateQuestionnaire tabs = do
             makeFormSubPane jq =
               appendT "<div class='form-subpane'>" jq
               >>= inside
-              >>= foldElements (E.children tab) formContext ElemBehaviour{ focusAction = tinkerDiagramForElement, blurAction = tinkerDiagramForElementBlur } 
+              >>= foldElements (E.children tab) formContext ElemBehaviour{ 
+                focusAction = Just tinkerDiagramForElement
+              , blurAction = Just tinkerDiagramForElementBlur
+              , detailsFunc = Nothing
+              } 
               >>= JQ.parent
               where
                 formContext = FormContext
