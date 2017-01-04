@@ -2,13 +2,10 @@
 
 module Model.Result where
 
-import           Data.Text (Text, pack)
-import           Data.Maybe (fromMaybe)
-import           Data.Int (Int64)
+import           Data.Text (Text)
 import qualified Database.PostgreSQL.Simple as PG
 import           Database.PostgreSQL.Simple.FromRow
 
-import           FormEngine.FormItem
 import           FormEngine.FormData
 import           Model.Respondent as R
 
@@ -26,10 +23,10 @@ instance FromRow Result where
   fromRow = Result <$> field <*> field <*> field <*> field <*> field
 
 resultId :: Respondent -> Text -> PG.Connection -> IO Int
-resultId respondent name conn = do
+resultId respondent name1 conn = do
   r <- PG.query conn
         "SELECT id FROM \"Results\" WHERE respondent_id = ? AND name = ?"
-        (R.id respondent, name) :: IO [PG.Only Int] 
+        (R.id respondent, name1) :: IO [PG.Only Int] 
   let x =
         case r of
           (f:_) -> f
@@ -38,15 +35,15 @@ resultId respondent name conn = do
   return i
 
 updateResult :: Respondent -> Text -> Maybe Text -> PG.Connection -> IO Int
-updateResult respondent name value conn = do
+updateResult respondent name1 value1 conn = do
   r <- PG.execute conn "UPDATE \"Results\" SET value = ?\
-                     \ WHERE name = ? AND respondent_id = ?" (value, name, R.id respondent) 
+                     \ WHERE name = ? AND respondent_id = ?" (value1, name1, R.id respondent) 
   return (fromIntegral r)
 
 insertResult :: Respondent -> Text -> Maybe Text -> Maybe Text -> PG.Connection -> IO Int
-insertResult respondent name text value conn = do
+insertResult respondent name1 text1 value1 conn = do
   r <- PG.query conn "INSERT INTO \"Results\" (respondent_id, name, text, value) VALUES (?, ?, ?, ?) RETURNING id"
-         (R.id respondent, name, text, value) :: IO [PG.Only Int]
+         (R.id respondent, name1, text1, value1) :: IO [PG.Only Int]
   let x =
         case r of
           (f:_) -> f

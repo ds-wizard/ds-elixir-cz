@@ -8,7 +8,6 @@ import           Data.Maybe (fromMaybe, isNothing, catMaybes)
 import           Text.Read (readMaybe)
 
 import           Haste
-
 import           Haste.JSString (pack)
 import           Haste.Ajax
 import           Haste.Foreign (export)
@@ -87,7 +86,6 @@ main = ready $ do
         return ()
       else do
         let tabs = catMaybes tabMaybes
-        --dumptIO (show tabs)
         time "Generate"
         generateQuestionnaire tabs
         timeEnd "Generate"

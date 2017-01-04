@@ -9,14 +9,12 @@ import           Text.Blaze.Html.Renderer.Text
 import           Web.Spock.Safe as W
 import           Network.Wai.Middleware.Static as M
 import           Network.Wai.Middleware.RequestLogger
-import           Data.Pool
 import qualified Database.PostgreSQL.Simple as PG
 
 import           Config.Config
 import           Config.Server.Config
 
 import           FormStructure.FormStructure as Structure
-import           FormEngine.FormItem
 import           FormEngine.FormData
 import qualified Modes
 import           Model.Respondent as R
@@ -65,20 +63,19 @@ submitHandler = do
       case maybeRespondent of
         Nothing -> redirect $ baseURL <> "wrong"
         Just respondent -> do 
-          ps <- params
           let fieldValues = map (getValue ps) (getFieldInfos Structure.formItems) 
           mapM_ (storeValue respondent) fieldValues
           redirect $ baseURL <> "submitted"
   where
-    getValue ps (name, text) = (name, text, lookup name ps)
+    getValue ps (name1, text1) = (name1, text1, lookup name1 ps)
     storeValue :: Respondent -> FieldValue -> ActionCtxT ctx (WebStateM PG.Connection b ()) () 
-    storeValue respondent (name, text, value) = do
-      resId <- runQuery $ resultId respondent name
-      if resId == 0 then 
-        runQuery $ insertResult respondent name text value 
+    storeValue respondent (name1, text1, value1) = do
+      resId <- runQuery $ resultId respondent name1
+      _ <- if resId == 0 then 
+        runQuery $ insertResult respondent name1 text1 value1 
       else 
-        runQuery $ updateResult respondent name value 
-      runQuery $ R.updateSubmission respondent
+        runQuery $ updateResult respondent name1 value1 
+      _ <- runQuery $ R.updateSubmission respondent
       return ()
 
 submittedHandler :: ActionCtxT ctx (WebStateM PG.Connection b ()) a

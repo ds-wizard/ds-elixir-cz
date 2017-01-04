@@ -1,9 +1,9 @@
 {-# LANGUAGE OverloadedStrings, CPP #-}
 
 module FormStructure.Chapter0 (ch0GeneralInformation) where
-#ifndef __HASTE__
-import           Data.Text (pack)
-#endif 
+-- #ifndef __HASTE__
+-- import           Data.Text (Text)
+-- #endif 
 import           FormEngine.FormItem
 import           FormStructure.Common
 import qualified Countries
