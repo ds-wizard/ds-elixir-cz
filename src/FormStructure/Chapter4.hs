@@ -2,8 +2,8 @@
 
 module FormStructure.Chapter4 (ch4DataStorage) where
 #ifndef __HASTE__
-import           Data.Text (pack)
-#endif 
+--import           Data.Text (pack)
+#endif
 import           FormEngine.FormItem
 import           FormStructure.Common
 
@@ -105,7 +105,7 @@ ch4DataStorage = Chapter
                       , iShortDescription = Nothing
                       , iLongDescription = Nothing
                       , iLink = Nothing
-                      , iRules = [storageSumRule, IntValueRule (\n -> n >= 0 && n <= 100)]
+                      , iRules = [storageSumRule, NumValueRule (\n -> n >= 0 && n <= 100)]
                       , iMandatory = True
                       }
                     , nfiUnit = SingleUnit "%"
@@ -119,7 +119,7 @@ ch4DataStorage = Chapter
                       , iShortDescription = Nothing
                       , iLongDescription = Nothing
                       , iLink = Nothing
-                      , iRules = [storageSumRule, IntValueRule (\n -> n >= 0 && n <= 100)]
+                      , iRules = [storageSumRule, NumValueRule (\n -> n >= 0 && n <= 100)]
                       , iMandatory = True
                       }
                     , nfiUnit = SingleUnit "%"
@@ -133,7 +133,7 @@ ch4DataStorage = Chapter
                       , iShortDescription = Nothing
                       , iLongDescription = Nothing
                       , iLink = Nothing
-                      , iRules = [storageSumRule, IntValueRule (\n -> n >= 0 && n <= 100)]
+                      , iRules = [storageSumRule, NumValueRule (\n -> n >= 0 && n <= 100)]
                       , iMandatory = True
                       }
                     , nfiUnit = SingleUnit "%"
@@ -147,7 +147,7 @@ ch4DataStorage = Chapter
                       , iShortDescription = Nothing
                       , iLongDescription = Nothing
                       , iLink = Nothing
-                      , iRules = [ReadOnlyRule, IntValueRule (== 100)]
+                      , iRules = [ReadOnlyRule, NumValueRule (== 100)]
                       , iMandatory = True
                       }
                     , nfiUnit = SingleUnit "%"

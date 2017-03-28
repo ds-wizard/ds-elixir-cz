@@ -17,13 +17,13 @@ import           Config.Config (staticURL)
 --import Haste.DOM
 
 chapterDiagLoadHandler :: FormElement -> Handler
-chapterDiagLoadHandler chapterElem _ = 
+chapterDiagLoadHandler chapterElem _ =
   --  resizeDescriptions
   tinkerDiagramForChapterElement chapterElem
 
 generateQuestionnaire :: [FormElement] -> IO ()
 generateQuestionnaire tabs = do
-  formJq <- select "#m_questionnaire_form" 
+  formJq <- select "#m_questionnaire_form"
   let allTabs = aboutTab : tabs
   _ <- renderTabGroup allTabs (aboutTabPaneJq : tabsContentsJq tabs) formJq
   _ <- selectTab 0 allTabs
@@ -42,24 +42,26 @@ generateQuestionnaire tabs = do
             makeFormSubPane jq =
               appendT "<div class='form-subpane'>" jq
               >>= inside
-              >>= foldElements (E.children tab) formContext ElemBehaviour{ 
+              >>= foldElements (E.children tab) formContext ElemBehaviour{
                 focusAction = Just tinkerDiagramForElement
               , blurAction = Just tinkerDiagramForElementBlur
               , detailsFunc = Nothing
-              } 
+              }
               >>= JQ.parent
               where
                 formContext = FormContext
                   { allElems = tabs
                   , validImg = "<img class='validity-flag' src='" <> staticURL <> "/img/valid.png'/>"
                   , invalidImg = "<img class='validity-flag' src='" <> staticURL <> "/img/invalid.png'/>"
+                  , addImg = "<img alt='add' class='button-add' src='" <> staticURL <> "img/add.png'/>"
+                  , removeImg = "<img alt='remove' class='button-add' src='" <> staticURL <> "img/remove.png'/>"
                   }
             makeDescSubPane :: JQuery -> IO JQuery
             makeDescSubPane jq =
               appendT "<div class='desc-subpane'>" jq >>=
               setAttrInside "id" (descSubpaneId tab) >>=
               inside >>=
-              loadDiagram 
+              loadDiagram
               >>= appendT "<p class='long-desc'>" >>=
               setAttrInside "id" (descSubpaneParagraphId tab)
               >>= inside
@@ -120,7 +122,7 @@ aboutTabPaneJq = select "\
 \    </p>\
 \    <br>\
 \    <p style='font-size: 90%; font-style: italic;'>\
-\      Version of this questionnaire: v2.0\
+\      Version of this questionnaire: v2.1\
 \    </p>\
 \  </div>\
 \ "

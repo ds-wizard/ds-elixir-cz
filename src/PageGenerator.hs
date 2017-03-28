@@ -17,13 +17,13 @@ import qualified Texts
 import           FormEngine.FormData (respondentKeyFieldId, respondentKeyFieldName)
 import           Model.Respondent as R
 
-renderOverlay :: T.Text -> Html -> Html 
+renderOverlay :: T.Text -> Html -> Html
 renderOverlay elemId content = do
   H.div ! A.id (H.toValue elemId) ! A.class_ "overlay" ! A.onclick fn $ do
     H.div content
   where
     fn = H.toValue $ T.concat ["Haste['overlay']('", elemId, "')"]
- 
+
 renderHead :: Html
 renderHead = H.head $ do
     H.meta ! A.charset "utf-8"
@@ -37,7 +37,7 @@ renderHead = H.head $ do
 renderBanner :: Html
 renderBanner = H.div ! A.id "banner" $ do
   H.p ! A.class_ "title" $ do
-    H.a ! A.href "https://en.wikipedia.org/wiki/Data_steward" ! A.target "_blank" $ "Data stewardship" 
+    H.a ! A.href "https://en.wikipedia.org/wiki/Data_steward" ! A.target "_blank" $ "Data stewardship"
     H.span " action team"
   H.a ! A.href "https://www.elixir-czech.cz/" $ do
     H.img ! A.src (textValue $ staticURL <> "img/logo.jpg") ! A.id "logo" ! A.alt "Elixir logo"
@@ -100,7 +100,7 @@ renderAcknowledgement = do
     H.a ! A.href "http://haste-lang.org/" ! A.class_ "colophon-text" $ "Haste"
     H.span ! A.class_ "colophon-text" $ ", powered by "
     H.a ! A.href "https://www.spock.li/" ! A.class_ "colophon-text" $ "Spock"
-    H.img ! A.src (textValue $ staticURL <> "img/haskell.png") ! A.alt "Haskell logo" 
+    H.img ! A.src (textValue $ staticURL <> "img/haskell.png") ! A.alt "Haskell logo"
 
 -- Pages
 
@@ -113,16 +113,16 @@ renderPage mode = do
         renderBanner
         case mode of
           ReadOnly -> H.div ! A.class_ "bar error" $ "To be able to submit your data, please apply for a respondent key @ robert.pergl@fit.cvut.cz"
-          WrongRespondent ->  H.div ! A.class_ "bar error" $ do 
+          WrongRespondent ->  H.div ! A.class_ "bar error" $ do
             _ <- "Wrong respondent key in URL"
             closeButton "error"
-          Filling respondent -> H.div ! A.class_ "bar message" $ do 
+          Filling respondent -> H.div ! A.class_ "bar message" $ do
             _ <- "Questionnaire opened for: "
             H.span ! A.style "font-style: normal; color: black;" $ toHtml $ R.name respondent
             _ <- " (last submission: "
             H.span ! A.style "font-style: normal; color: black;" $ toHtml $ R.submissionInfo respondent
             ")"
-          Submitted -> H.div ! A.class_ "bar message" $ do 
+          Submitted -> H.div ! A.class_ "bar message" $ do
             _ <- "Thank you for your submission! "
             closeButton "message"
         renderTabs
@@ -146,19 +146,19 @@ renderPage mode = do
     lifeCyclePane = H.div ! A.id "pane_300" ! A.style "display: none;" $ Texts.lifeCycle
     dataPane = H.div ! A.id "pane_400" ! A.style "display: none;" $ Texts.dataText
     rolesPane = H.div ! A.id "pane_500" ! A.style "display: none;" $ Texts.roles
-    mFormHolderPane = 
+    mFormHolderPane =
       H.div ! A.id "pane_600" ! A.style "display: none;" $ do
         H.form ! A.id "m_questionnaire_form" ! A.method "post" ! A.action "submit"  $ do
-          H.input ! A.type_ "hidden" ! A.id (textValue respondentKeyFieldId) ! A.name (textValue respondentKeyFieldName) ! A.value (textValue respondentKey) 
+          H.input ! A.type_ "hidden" ! A.id (textValue respondentKeyFieldId) ! A.name (textValue respondentKeyFieldName) ! A.value (textValue respondentKey)
         where
           respondentKey = case mode of
             ReadOnly -> ""
-            WrongRespondent -> "" 
+            WrongRespondent -> ""
             Filling respondent -> R.key respondent
             Submitted -> ""
-    tFormHolderPane = H.div ! A.id "pane_700" ! A.style "display: none;" $ 
+    tFormHolderPane = H.div ! A.id "pane_700" ! A.style "display: none;" $
       H.p ! A.style "font-style: italic;" $ "Being prepared."
-    overlayPanes = do 
+    overlayPanes = do
       renderOverlay "overlay1" Texts.overlay1
       renderOverlay "overlay2" Texts.overlay2
       renderOverlay "overlay3" Texts.overlay3

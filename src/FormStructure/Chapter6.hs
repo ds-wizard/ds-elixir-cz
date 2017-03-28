@@ -2,8 +2,8 @@
 
 module FormStructure.Chapter6 (ch6DataManagement) where
 #ifndef __HASTE__
-import           Data.Text (pack)
-#endif 
+--import           Data.Text (pack)
+#endif
 import           FormEngine.FormItem
 import           FormStructure.Common
 
