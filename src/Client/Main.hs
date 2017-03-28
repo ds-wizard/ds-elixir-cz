@@ -38,7 +38,7 @@ scrollHandler tabGroup _ = do
       return ()
   where
    getPanesSelectors :: [FormElement] -> [ElementSelector]
-   getPanesSelectors = map (("#" ++) . descSubpaneId)  
+   getPanesSelectors = map (("#" ++) . descSubpaneId)
 
 resizeHandler :: Handler
 resizeHandler _ = do
@@ -75,7 +75,7 @@ main = ready $ do
   _ <- select "#svg_investigator" >>= onLoad tinkerDiagSvgInvestigator
   respondentKey <- getRespondentKey
   ajaxRequest POST "api/getData" [("respondent_key" :: JSString, pack respondentKey :: JSString)] buildQuestionnaire
-    where 
+    where
     buildQuestionnaire :: Maybe String -> IO ()
     buildQuestionnaire maybeDataString = do
      -- dumptIO (fromMaybe "" maybeDataString)

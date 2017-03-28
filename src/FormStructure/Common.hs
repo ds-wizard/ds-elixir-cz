@@ -2,8 +2,8 @@
 
 module FormStructure.Common where
 #ifndef __HASTE__
-import           Data.Text (pack)
-#endif 
+--import           Data.Text (pack)
+#endif
 import           FormEngine.FormItem
 
 cost :: FormItem

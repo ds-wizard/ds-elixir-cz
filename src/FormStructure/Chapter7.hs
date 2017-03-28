@@ -2,8 +2,8 @@
 
 module FormStructure.Chapter7 (ch7Roles) where
 #ifndef __HASTE__
-import           Data.Text (pack)
-#endif 
+--import           Data.Text (pack)
+#endif
 import           FormEngine.FormItem
 import           FormStructure.Common
 

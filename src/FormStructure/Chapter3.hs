@@ -2,8 +2,8 @@
 
 module FormStructure.Chapter3 (ch3DataUsage) where
 #ifndef __HASTE__
-import           Data.Text (pack)
-#endif 
+--import           Data.Text (pack)
+#endif
 import           FormEngine.FormItem
 import           FormStructure.Common
 
@@ -109,7 +109,7 @@ ch3DataUsage = Chapter
                         }
                       , NumberFI
                         { nfiDescriptor = FIDescriptor
-                          { iLabel = Just "Incoming external specific raw data volume"
+                          { iLabel = Just "Incoming external specific primary data volume"
                           , iNumbering = NoNumbering
                           , iIdent = Nothing
                           , iTags = [Tag "arrow_L_3"]
@@ -287,7 +287,7 @@ financingInternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [fundingSumRule, IntValueRule (\n -> n >=0 && n <= 100)]
+                  , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -301,7 +301,7 @@ financingInternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [fundingSumRule, IntValueRule (\n -> n >=0 && n <= 100)]
+                  , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -315,7 +315,7 @@ financingInternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [fundingSumRule, IntValueRule (\n -> n >=0 && n <= 100)]
+                  , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -329,7 +329,7 @@ financingInternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [fundingSumRule, IntValueRule (\n -> n >=0 && n <= 100)]
+                  , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -343,7 +343,7 @@ financingInternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [ReadOnlyRule, IntValueRule (== 100)]
+                  , iRules = [ReadOnlyRule, NumValueRule (== 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -382,7 +382,7 @@ financingExternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [fundingSumRule, IntValueRule (\n -> n >=0 && n <= 100)]
+                  , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -396,7 +396,7 @@ financingExternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [fundingSumRule, IntValueRule (\n -> n >=0 && n <= 100)]
+                  , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -410,7 +410,7 @@ financingExternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [fundingSumRule, IntValueRule (\n -> n >=0 && n <= 100)]
+                  , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -424,7 +424,7 @@ financingExternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [fundingSumRule, IntValueRule (\n -> n >=0 && n <= 100)]
+                  , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -438,7 +438,7 @@ financingExternal = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [ReadOnlyRule, IntValueRule (== 100)]
+                  , iRules = [ReadOnlyRule, NumValueRule (== 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -477,7 +477,7 @@ accessibility = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [accSumRule, IntValueRule (<= 100)]
+                  , iRules = [accSumRule, NumValueRule (<= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -491,7 +491,7 @@ accessibility = SimpleGroup
                   , iShortDescription = Just "E.g. based on contract"
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [accSumRule, IntValueRule (<= 100)]
+                  , iRules = [accSumRule, NumValueRule (<= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -505,7 +505,7 @@ accessibility = SimpleGroup
                   , iShortDescription = Just "Free or paid"
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [accSumRule, IntValueRule (<= 100)]
+                  , iRules = [accSumRule, NumValueRule (<= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
@@ -519,7 +519,7 @@ accessibility = SimpleGroup
                   , iShortDescription = Nothing
                   , iLongDescription = Nothing
                   , iLink = Nothing
-                  , iRules = [ReadOnlyRule, IntValueRule (== 100)]
+                  , iRules = [ReadOnlyRule, NumValueRule (== 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"

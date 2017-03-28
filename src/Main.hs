@@ -38,9 +38,9 @@ main = do
     post "api/getData" getDataHandler
 
 rootHandler :: ActionCtxT ctx (WebStateM PG.Connection b ()) a
-rootHandler = do 
+rootHandler = do
     ps <- params
-    let maybeRespondentKey = lookup respondentKeyFieldName ps 
+    let maybeRespondentKey = lookup respondentKeyFieldName ps
     case maybeRespondentKey of
       Nothing -> html $ toStrict $ renderHtml $ renderPage Modes.ReadOnly
       Just respondentKey -> do
@@ -62,19 +62,19 @@ submitHandler = do
       maybeRespondent <- runQuery $ getRespondent respondentKey
       case maybeRespondent of
         Nothing -> redirect $ baseURL <> "wrong"
-        Just respondent -> do 
-          let fieldValues = map (getValue ps) (getFieldInfos Structure.formItems) 
+        Just respondent -> do
+          let fieldValues = map (getValue ps) (getFieldInfos Structure.formItems)
           mapM_ (storeValue respondent) fieldValues
           redirect $ baseURL <> "submitted"
   where
     getValue ps (name1, text1) = (name1, text1, lookup name1 ps)
-    storeValue :: Respondent -> FieldValue -> ActionCtxT ctx (WebStateM PG.Connection b ()) () 
+    storeValue :: Respondent -> FieldValue -> ActionCtxT ctx (WebStateM PG.Connection b ()) ()
     storeValue respondent (name1, text1, value1) = do
       resId <- runQuery $ resultId respondent name1
-      _ <- if resId == 0 then 
-        runQuery $ insertResult respondent name1 text1 value1 
-      else 
-        runQuery $ updateResult respondent name1 value1 
+      _ <- if resId == 0 then
+        runQuery $ insertResult respondent name1 text1 value1
+      else
+        runQuery $ updateResult respondent name1 value1
       _ <- runQuery $ R.updateSubmission respondent
       return ()
 
@@ -84,7 +84,7 @@ submittedHandler =  html $ toStrict $ renderHtml $ renderPage Modes.Submitted
 getDataHandler :: ActionCtxT ctx (WebStateM PG.Connection b ()) a
 getDataHandler = do
   ps <- params
-  let maybeRespondentKey = lookup respondentKeyFieldName ps 
+  let maybeRespondentKey = lookup respondentKeyFieldName ps
   case maybeRespondentKey of
     Nothing -> W.text ""
     Just respondentKey -> do
