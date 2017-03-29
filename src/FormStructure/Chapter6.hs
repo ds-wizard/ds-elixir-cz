@@ -9,60 +9,26 @@ import           FormStructure.Common
 
 ch6DataManagement :: FormItem
 ch6DataManagement = Chapter
-  { chDescriptor = FIDescriptor
-    { iNumbering = NoNumbering
-    , iLabel = Just "6.Management "
-    , iIdent = Nothing
-    , iTags = []
-    , iShortDescription = Nothing
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
-    , iMandatory = False
-    }
+  { chDescriptor = defaultFIDescriptor { iLabel = Just "6.Management " }
   , chItems = [for, management, cost6, remark]
   }
   where
     for :: FormItem
     for = SimpleGroup
-      { sgDescriptor = FIDescriptor
+      { sgDescriptor = defaultFIDescriptor
         { iLabel = Just "We perform data management for:"
-        , iNumbering = NoNumbering
-        , iIdent = Nothing
-        , iTags = []
-        , iShortDescription = Nothing
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
-        , iMandatory = False
         }
       , sgLevel = 0
       , sgItems = [ OptionalGroup
-                    { ogDescriptor = FIDescriptor
+                    { ogDescriptor = defaultFIDescriptor
                       { iLabel = Just "local use"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , ogLevel = 0
                     , ogItems = []
                     }
                   , OptionalGroup
-                    { ogDescriptor = FIDescriptor
+                    { ogDescriptor = defaultFIDescriptor
                       { iLabel = Just "community use"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , ogLevel = 0
                     , ogItems = []
@@ -71,98 +37,40 @@ ch6DataManagement = Chapter
       }
     management :: FormItem
     management = SimpleGroup
-      { sgDescriptor = FIDescriptor
+      { sgDescriptor = defaultFIDescriptor
         { iLabel = Just "Management details"
-        , iNumbering = NoNumbering
-        , iIdent = Nothing
-        , iTags = []
-        , iShortDescription = Nothing
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
-        , iMandatory = False
         }
       , sgLevel = 0
       , sgItems = [ ChoiceFI
-                    { chfiDescriptor = FIDescriptor
+                    { chfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Do you handle error reports?"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , chfiAvailableOptions = [SimpleOption "no", SimpleOption "yes"]
                     }
                   , ChoiceFI
-                    { chfiDescriptor = FIDescriptor
+                    { chfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Do you manage versioning?"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , chfiAvailableOptions = [SimpleOption "no", SimpleOption "yes"]
                     }
                   , ChoiceFI
-                    { chfiDescriptor = FIDescriptor
+                    { chfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Is data actuality maintained (updates)?"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , chfiAvailableOptions = [SimpleOption "no", SimpleOption "yes"]
                     }
                   , ChoiceFI
-                    { chfiDescriptor = FIDescriptor
+                    { chfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Sustainability"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , chfiAvailableOptions = [ SimpleOption "long-term, continuous funding"
                                              , DetailedOption NoNumbering "short-term"
                                                  [ SimpleGroup
-                                                   { sgDescriptor = FIDescriptor
-                                                     { iLabel = Nothing
-                                                     , iNumbering = NoNumbering
-                                                     , iIdent = Nothing
-                                                     , iTags = []
-                                                     , iShortDescription = Nothing
-                                                     , iLongDescription = Nothing
-                                                     , iLink = Nothing
-                                                     , iRules = []
-                                                     , iMandatory = False
-                                                     }
+                                                   { sgDescriptor = defaultFIDescriptor
                                                    , sgLevel = 0
                                                    , sgItems = [ NumberFI
-                                                                 { nfiDescriptor = FIDescriptor
+                                                                 { nfiDescriptor = defaultFIDescriptor
                                                                    { iLabel = Just "How long"
-                                                                   , iNumbering = NoNumbering
-                                                                   , iIdent = Nothing
-                                                                   , iTags = []
-                                                                   , iShortDescription = Nothing
-                                                                   , iLongDescription = Nothing
-                                                                   , iLink = Nothing
-                                                                   , iRules = []
-                                                                   , iMandatory = False
                                                                    }
                                                                  , nfiUnit = SingleUnit "years"
                                                                  }
@@ -172,29 +80,14 @@ ch6DataManagement = Chapter
                                              ]
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Longest required sustainability"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "years"
                     }
                   , ChoiceFI
-                    { chfiDescriptor = FIDescriptor
+                    { chfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Do you apply some form of data stewardship?"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     , chfiAvailableOptions = [ DetailedOption NoNumbering "Yes" [xhow]
@@ -206,29 +99,14 @@ ch6DataManagement = Chapter
 
     cost6 :: FormItem
     cost6 = SimpleGroup
-      { sgDescriptor = FIDescriptor
+      { sgDescriptor = defaultFIDescriptor
         { iLabel = Just "Total cost of data management"
-        , iShortDescription = Nothing
-        , iNumbering = NoNumbering
-        , iIdent = Nothing
-        , iTags = []
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
         , iMandatory = True
         }
       , sgLevel = 0
       , sgItems = [ NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "For year 2015"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "thousand EUR"
                     }

@@ -1,78 +1,39 @@
-{-# LANGUAGE OverloadedStrings, CPP #-}
+{-# LANGUAGE OverloadedStrings, NamedFieldPuns, CPP #-}
 
 module FormStructure.Chapter0 (ch0GeneralInformation) where
 -- #ifndef __HASTE__
 -- import           Data.Text (Text)
--- #endif 
+-- #endif
 import           FormEngine.FormItem
 import           FormStructure.Common
 import qualified Countries
 
 ch0GeneralInformation :: FormItem
 ch0GeneralInformation = Chapter
-  { chDescriptor = FIDescriptor
-    { iNumbering = NoNumbering
-    , iLabel = Just "0.General Info"
-    , iIdent = Nothing
-    , iTags = []
-    , iShortDescription = Nothing
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
-    , iMandatory = False
-    }
+  { chDescriptor = defaultFIDescriptor { iLabel = Just "0.General Info" }
   , chItems = [identification, institution, remark]
   }
   where
     identification = SimpleGroup
-      { sgDescriptor = FIDescriptor
+      { sgDescriptor = defaultFIDescriptor
         { iLabel = Just "Registration of the responder"
-        , iShortDescription = Nothing
-        , iNumbering = NoNumbering
-        , iIdent = Nothing
-        , iTags = []
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
         , iMandatory = True
         }
       , sgLevel = 0
       , sgItems = [ StringFI
-                    { sfiDescriptor = FIDescriptor
+                    { sfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "First name"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
-                      , iMandatory = False
                       }
                     }
                   , StringFI
-                    { sfiDescriptor = FIDescriptor
+                    { sfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Surname"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     }
                   , EmailFI
-                    { efiDescriptor = FIDescriptor
+                    { efiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Email"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     }
@@ -80,68 +41,33 @@ ch0GeneralInformation = Chapter
       }
     institution :: FormItem
     institution = SimpleGroup
-      { sgDescriptor = FIDescriptor
+      { sgDescriptor = defaultFIDescriptor
         { iLabel = Just "Affiliation"
-        , iShortDescription = Nothing
-        , iNumbering = NoNumbering
-        , iIdent = Nothing
-        , iTags = []
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
         , iMandatory = True
         }
       , sgLevel = 0
       , sgItems = [ ListFI
-                    { lfiDescriptor = FIDescriptor
+                    { lfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Country"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     , lfiAvailableOptions = Countries.countries
                     }
                   , StringFI
-                    { sfiDescriptor = FIDescriptor
+                    { sfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Institution name"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     }
                   , StringFI
-                    { sfiDescriptor = FIDescriptor
+                    { sfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Organisation unit"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     }
                   , ChoiceFI
-                    { chfiDescriptor = FIDescriptor
+                    { chfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Level of unit"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     , chfiAvailableOptions = [ SimpleOption "institution"

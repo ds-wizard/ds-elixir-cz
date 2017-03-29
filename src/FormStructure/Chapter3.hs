@@ -9,31 +9,14 @@ import           FormStructure.Common
 
 ch3DataUsage :: FormItem
 ch3DataUsage = Chapter
-  { chDescriptor = FIDescriptor
-    { iNumbering = NoNumbering
-    , iLabel = Just "3.Usage "
-    , iIdent = Nothing
-    , iTags = []
-    , iShortDescription = Nothing
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
-    , iMandatory = False
-    }
+  { chDescriptor = defaultFIDescriptor { iLabel = Just "3.Usage " }
   , chItems = [ch2DataProductionQuestion]
   }
   where
     ch2DataProductionQuestion :: FormItem
     ch2DataProductionQuestion = ChoiceFI
-      { chfiDescriptor = FIDescriptor
+      { chfiDescriptor = defaultFIDescriptor
         { iLabel = Just "Do you use data, i.e. to perform analyses?"
-        , iNumbering = NoNumbering
-        , iIdent = Nothing
-        , iTags = []
-        , iShortDescription = Nothing
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
         , iMandatory = True
         }
       , chfiAvailableOptions = [ DetailedOption NoNumbering "Yes"
@@ -51,101 +34,54 @@ ch3DataUsage = Chapter
       where
         usageType :: FormItem
         usageType = SimpleGroup
-          { sgDescriptor = FIDescriptor
-            { iLabel = Nothing
-            , iShortDescription = Nothing
-            , iNumbering = NoNumbering
-            , iIdent = Nothing
-            , iTags = []
-            , iLongDescription = Nothing
-            , iLink = Nothing
-            , iRules = []
-            , iMandatory = True
+          { sgDescriptor = defaultFIDescriptor
+            { iMandatory = True
             }
           , sgLevel = 0
           , sgItems = [ TextFI
-                        { tfiDescriptor = FIDescriptor
+                        { tfiDescriptor = defaultFIDescriptor
                           { iLabel = Just "Describe the usage"
-                          , iNumbering = NoNumbering
-                          , iIdent = Nothing
-                          , iTags = []
-                          , iShortDescription = Nothing
                           , iLongDescription = Just
                                                  "A typical usage is performing a certain analysis."
-                          , iLink = Nothing
-                          , iRules = []
-                          , iMandatory = False
                           }
                         }
                       ]
           }
         inputVolumes :: FormItem
         inputVolumes = SimpleGroup
-          { sgDescriptor = FIDescriptor
+          { sgDescriptor = defaultFIDescriptor
             { iLabel = Just "Input data (for 2015)"
-            , iNumbering = NoNumbering
-            , iIdent = Nothing
-            , iTags = []
-            , iShortDescription = Nothing
-            , iLongDescription = Nothing
-            , iLink = Nothing
-            , iRules = []
             , iMandatory = True
             }
           , sgLevel = 0
           , sgItems = [ NumberFI
-                        { nfiDescriptor = FIDescriptor
+                        { nfiDescriptor = defaultFIDescriptor
                           { iLabel = Just "Inhouse produced data volume"
-                          , iNumbering = NoNumbering
                           , iIdent = Just "sec-input-volume"
                           , iTags = [Tag "arrow_2_3"]
-                          , iShortDescription = Nothing
-                          , iLongDescription = Nothing
-                          , iLink = Nothing
                           , iRules = [ReadOnlyRule]
-                          , iMandatory = False
                           }
                         , nfiUnit = SingleUnit "TB"
                         }
                       , NumberFI
-                        { nfiDescriptor = FIDescriptor
+                        { nfiDescriptor = defaultFIDescriptor
                           { iLabel = Just "Incoming external specific primary data volume"
-                          , iNumbering = NoNumbering
-                          , iIdent = Nothing
                           , iTags = [Tag "arrow_L_3"]
                           , iShortDescription = Just
                                                   "External data that are not publicly available and are produced specifically for your needs."
-                          , iLongDescription = Nothing
-                          , iLink = Nothing
-                          , iRules = []
                           , iMandatory = True
                           }
                         , nfiUnit = MultipleUnit ["MB", "GB", "TB", "PB"]
                         }
                       , SimpleGroup
-                        { sgDescriptor = FIDescriptor
+                        { sgDescriptor = defaultFIDescriptor
                           { iLabel = Just "Cost of external data purchases"
-                          , iShortDescription = Nothing
-                          , iNumbering = NoNumbering
-                          , iIdent = Nothing
-                          , iTags = []
-                          , iLongDescription = Nothing
-                          , iLink = Nothing
-                          , iRules = []
                           , iMandatory = True
                           }
                         , sgLevel = 0
                         , sgItems = [ NumberFI
-                                      { nfiDescriptor = FIDescriptor
+                                      { nfiDescriptor = defaultFIDescriptor
                                         { iLabel = Just "For year 2015"
-                                        , iNumbering = NoNumbering
-                                        , iIdent = Nothing
-                                        , iTags = []
-                                        , iShortDescription = Nothing
-                                        , iLongDescription = Nothing
-                                        , iLink = Nothing
-                                        , iRules = []
-                                        , iMandatory = False
                                         }
                                       , nfiUnit = SingleUnit "thousand EUR"
                                       }
@@ -156,27 +92,17 @@ ch3DataUsage = Chapter
           }
         outputVolumes :: FormItem
         outputVolumes = SimpleGroup
-          { sgDescriptor = FIDescriptor
+          { sgDescriptor = defaultFIDescriptor
             { iLabel = Just "Output data volumes (for 2015)"
-            , iNumbering = NoNumbering
-            , iIdent = Nothing
-            , iTags = []
-            , iShortDescription = Nothing
-            , iLongDescription = Nothing
-            , iLink = Nothing
-            , iRules = []
             , iMandatory = True
             }
           , sgLevel = 0
           , sgItems = [ NumberFI
-                        { nfiDescriptor = FIDescriptor
+                        { nfiDescriptor = defaultFIDescriptor
                           { iLabel = Just "Resulting data volume"
-                          , iNumbering = NoNumbering
                           , iIdent = Just "sec-volume"
                           , iTags = [Tag "arrow_3_4"]
                           , iShortDescription = Just "Resulting data from this stage"
-                          , iLongDescription = Nothing
-                          , iLink = Nothing
                           , iRules = [totalSum]
                           , iMandatory = True
                           }
@@ -186,29 +112,15 @@ ch3DataUsage = Chapter
           }
         cost3 :: FormItem
         cost3 = SimpleGroup
-          { sgDescriptor = FIDescriptor
+          { sgDescriptor = defaultFIDescriptor
             { iLabel = Just "Cost of secondary data production"
             , iShortDescription = Just "Rough estimation of FTEs + investments + consumables"
-            , iNumbering = NoNumbering
-            , iIdent = Nothing
-            , iTags = []
-            , iLongDescription = Nothing
-            , iLink = Nothing
-            , iRules = []
             , iMandatory = True
             }
           , sgLevel = 0
           , sgItems = [ NumberFI
-                        { nfiDescriptor = FIDescriptor
+                        { nfiDescriptor = defaultFIDescriptor
                           { iLabel = Just "For year 2015"
-                          , iNumbering = NoNumbering
-                          , iIdent = Nothing
-                          , iTags = []
-                          , iShortDescription = Nothing
-                          , iLongDescription = Nothing
-                          , iLink = Nothing
-                          , iRules = []
-                          , iMandatory = False
                           }
                         , nfiUnit = SingleUnit "thousand EUR"
                         }
@@ -216,43 +128,24 @@ ch3DataUsage = Chapter
                       ]
           }
         management = SimpleGroup
-          { sgDescriptor = FIDescriptor
+          { sgDescriptor = defaultFIDescriptor
             { iLabel = Just "Maintenance and data sustainability"
-            , iNumbering = NoNumbering
-            , iIdent = Nothing
-            , iTags = []
             , iShortDescription = Just
                                     "Data represent a valuable asset that should be persisted as long as possible. How is your situation?"
-            , iLongDescription = Nothing
-            , iLink = Nothing
-            , iRules = []
             , iMandatory = True
             }
           , sgLevel = 0
           , sgItems = [ ChoiceFI
-                        { chfiDescriptor = FIDescriptor
+                        { chfiDescriptor = defaultFIDescriptor
                           { iLabel = Just "Is the data sustainability plan defined?"
-                          , iNumbering = NoNumbering
-                          , iIdent = Nothing
-                          , iTags = []
-                          , iShortDescription = Nothing
-                          , iLongDescription = Nothing
-                          , iLink = Nothing
-                          , iRules = []
                           , iMandatory = True
                           }
                         , chfiAvailableOptions = [SimpleOption "Yes", SimpleOption "No"]
                         }
                       , ChoiceFI
-                        { chfiDescriptor = FIDescriptor
+                        { chfiDescriptor = defaultFIDescriptor
                           { iLabel = Just "How long are the data stored?"
-                          , iNumbering = NoNumbering
-                          , iIdent = Nothing
-                          , iTags = []
                           , iShortDescription = Just "Longest considered period"
-                          , iLongDescription = Nothing
-                          , iLink = Nothing
-                          , iRules = []
                           , iMandatory = True
                           }
                         , chfiAvailableOptions = [ SimpleOption "weeks"
@@ -266,83 +159,51 @@ ch3DataUsage = Chapter
 
 financingInternal :: FormItem
 financingInternal = SimpleGroup
-  { sgDescriptor = FIDescriptor
+  { sgDescriptor = defaultFIDescriptor
     { iLabel = Just "Funding"
-    , iShortDescription = Nothing
-    , iNumbering = NoNumbering
-    , iIdent = Nothing
-    , iTags = []
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
     , iMandatory = True
     }
   , sgLevel = 0
   , sgItems = [ NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "Institutional"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-internal-funding-institutional"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "National"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-internal-funding-national"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "European"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-internal-funding-european"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "World-wide"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-internal-funding-worldwide"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "Sum"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-internal-funding-sum"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [ReadOnlyRule, NumValueRule (== 100)]
                   , iMandatory = True
                   }
@@ -361,83 +222,51 @@ financingInternal = SimpleGroup
 
 financingExternal :: FormItem
 financingExternal = SimpleGroup
-  { sgDescriptor = FIDescriptor
+  { sgDescriptor = defaultFIDescriptor
     { iLabel = Just "Funding"
-    , iShortDescription = Nothing
-    , iNumbering = NoNumbering
-    , iIdent = Nothing
-    , iTags = []
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
     , iMandatory = True
     }
   , sgLevel = 0
   , sgItems = [ NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "Institutional"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-external-internal-funding-institutional"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "National"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-external-internal-funding-national"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "European"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-external-internal-funding-european"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "World-wide"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-external-internal-funding-worldwide"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [fundingSumRule, NumValueRule (\n -> n >=0 && n <= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "Sum"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-external-internal-funding-sum"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [ReadOnlyRule, NumValueRule (== 100)]
                   , iMandatory = True
                   }
@@ -456,69 +285,47 @@ financingExternal = SimpleGroup
 
 accessibility :: FormItem
 accessibility = SimpleGroup
-  { sgDescriptor = FIDescriptor
+  { sgDescriptor = defaultFIDescriptor
     { iLabel = Just "Accesibility modes of your data:"
-    , iShortDescription = Nothing
-    , iNumbering = NoNumbering
-    , iIdent = Nothing
-    , iTags = []
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
     , iMandatory = True
     }
   , sgLevel = 0
   , sgItems = [ NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "Internal inside project / collaboration"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-accessibility-inside"
                   , iTags = [Tag "box_5_i"]
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [accSumRule, NumValueRule (<= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "External closed access"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-accessibility-closed"
                   , iTags = [Tag "box_5_e", Tag "arrow_5_ca"]
                   , iShortDescription = Just "E.g. based on contract"
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [accSumRule, NumValueRule (<= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "External open access"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-accessibility-open"
                   , iTags = [Tag "box_5_e", Tag "arrow_5_oa"]
                   , iShortDescription = Just "Free or paid"
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [accSumRule, NumValueRule (<= 100)]
                   , iMandatory = True
                   }
                 , nfiUnit = SingleUnit "%"
                 }
               , NumberFI
-                { nfiDescriptor = FIDescriptor
+                { nfiDescriptor = defaultFIDescriptor
                   { iLabel = Just "Sum"
-                  , iNumbering = NoNumbering
                   , iIdent = Just "sec-accessibility-sum"
-                  , iTags = []
-                  , iShortDescription = Nothing
-                  , iLongDescription = Nothing
-                  , iLink = Nothing
                   , iRules = [ReadOnlyRule, NumValueRule (== 100)]
                   , iMandatory = True
                   }

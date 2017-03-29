@@ -9,129 +9,70 @@ import           FormStructure.Common
 
 ch7Roles :: FormItem
 ch7Roles = Chapter
-  { chDescriptor = FIDescriptor
-    { iNumbering = NoNumbering
-    , iLabel = Just "7.Roles "
-    , iIdent = Nothing
-    , iTags = []
-    , iShortDescription = Nothing
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
-    , iMandatory = False
-    }
+  { chDescriptor = defaultFIDescriptor { iLabel = Just "7.Roles " }
   , chItems = [roles, remark]
   }
   where
     roles :: FormItem
     roles = SimpleGroup
-      { sgDescriptor = FIDescriptor
-        { iNumbering = NoNumbering
-        , iLabel = Just "Employed roles"
-        , iIdent = Nothing
-        , iTags = []
-        , iShortDescription = Nothing
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
+      { sgDescriptor = defaultFIDescriptor
+        { iLabel = Just "Employed roles"
         , iMandatory = True
         }
       , sgLevel = 0
       , sgItems = [ NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Data producer"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
                       , iTags = [Tag "box_1"]
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
                       , iLink = Just "Haste['toRoles']()"
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "Full-time equivalent"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Data expert"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
                       , iTags = fmap Tag ["box_2", "box_3", "box_4_1"]
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
                       , iLink = Just "Haste['toRoles']()"
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "Full-time equivalent"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Data consumer"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
                       , iTags = [Tag "box_3"]
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
                       , iLink = Just "Haste['toRoles']()"
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "Full-time equivalent"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Data curator"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
                       , iTags = fmap Tag ["box_2", "box_3", "box_4_1", "box_5_i", "box_5_e", "box_6"]
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
                       , iLink = Just "Haste['toRoles']()"
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "Full-time equivalent"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Data custodian"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
                       , iTags = fmap Tag ["box_4_1", "box_5_i", "box_5_e"]
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
                       , iLink = Just "Haste['toRoles']()"
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "Full-time equivalent"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Data steward"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
                       , iTags = fmap Tag ["box_1", "box_2", "box_3", "box_4_1", "box_5_i", "box_5_e", "box_6"]
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
                       , iLink = Just "Haste['toRoles']()"
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "Full-time equivalent"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Data manager"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
                       , iTags = fmap Tag ["box_1", "box_2", "box_4_1", "box_5_i", "box_5_e", "box_6"]
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
                       , iLink = Just "Haste['toRoles']()"
-                      , iRules = []
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "Full-time equivalent"
                     }

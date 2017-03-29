@@ -6,45 +6,21 @@ import           FormEngine.FormItem
 
 submitForm :: FormItem
 submitForm = Chapter
-  { chDescriptor = FIDescriptor
-    { iNumbering = NoNumbering
-    , iLabel = Just "Finish"
-    , iIdent = Nothing
-    , iTags = []
-    , iShortDescription = Nothing
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
-    , iMandatory = False
-    }
+  { chDescriptor = defaultFIDescriptor { iLabel = Just "Finish" }
   , chItems = [saveButton]
   }
   where
     saveButton :: FormItem
     saveButton = SaveButtonFI
-      { sviDescriptor = FIDescriptor
-        { iNumbering = NoNumbering
-        , iLabel = Nothing
-        , iIdent = Nothing
-        , iTags = []
-        , iShortDescription = Just "Save your answers."
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
+      { sviDescriptor = defaultFIDescriptor
+        { iShortDescription = Just "Save your answers."
         , iMandatory = True
         }
       }
 --    submitButton :: FormItem
 --    submitButton = SubmitButtonFI
---      { sbiDescriptor = FIDescriptor
---        { iNumbering = NoNumbering
---        , iLabel = Nothing
---        , iIdent = Nothing
---        , iTags = []
+--      { sbiDescriptor = defaultFIDescriptor
 --        , iShortDescription = Just "Finish and submit the answers."
---        , iLongDescription = Nothing
---        , iLink = Nothing
---        , iRules = []
 --        , iMandatory = True
 --        }
 --      }

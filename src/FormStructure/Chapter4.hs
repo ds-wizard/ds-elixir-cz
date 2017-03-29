@@ -9,73 +9,37 @@ import           FormStructure.Common
 
 ch4DataStorage :: FormItem
 ch4DataStorage = Chapter
-  { chDescriptor = FIDescriptor
-    { iNumbering = NoNumbering
-    , iLabel = Just "4.Storage "
-    , iIdent = Nothing
-    , iTags = []
-    , iShortDescription = Nothing
-    , iLongDescription = Nothing
-    , iLink = Nothing
-    , iRules = []
-    , iMandatory = False
-    }
+  { chDescriptor = defaultFIDescriptor { iLabel = Just "4.Storage " }
   , chItems = [volumes, providers, remark]
   }
   where
     volumes :: FormItem
     volumes = SimpleGroup
-      { sgDescriptor = FIDescriptor
+      { sgDescriptor = defaultFIDescriptor
         { iLabel = Just "Data volumes"
         , iShortDescription = Just
                                 "Just scientic data volumes (without backups and scratch/tmp) are in question."
-        , iNumbering = NoNumbering
-        , iIdent = Nothing
-        , iTags = []
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
         , iMandatory = True
         }
       , sgLevel = 0
       , sgItems = [ NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Total volume produced in 2015"
-                      , iNumbering = NoNumbering
                       , iIdent = Just "total-volume"
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
                       , iRules = [ReadOnlyRule]
-                      , iMandatory = False
                       }
                     , nfiUnit = SingleUnit "TB"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Total volume of data stored at the end of 2015"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     , nfiUnit = MultipleUnit ["MB", "GB", "TB", "PB"]
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Total volume of backups"
-                      , iNumbering = NoNumbering
-                      , iIdent = Nothing
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
-                      , iRules = []
                       , iMandatory = True
                       }
                     , nfiUnit = MultipleUnit ["MB", "GB", "TB", "PB"]
@@ -84,69 +48,42 @@ ch4DataStorage = Chapter
       }
     providers :: FormItem
     providers = SimpleGroup
-      { sgDescriptor = FIDescriptor
+      { sgDescriptor = defaultFIDescriptor
         { iLabel = Just "Storage providers"
-        , iShortDescription = Nothing
-        , iNumbering = NoNumbering
-        , iIdent = Nothing
-        , iTags = []
-        , iLongDescription = Nothing
-        , iLink = Nothing
-        , iRules = []
         , iMandatory = True
         }
       , sgLevel = 0
       , sgItems = [ NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Group's local"
-                      , iNumbering = NoNumbering
                       , iIdent = Just "storage-provider-group"
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
                       , iRules = [storageSumRule, NumValueRule (\n -> n >= 0 && n <= 100)]
                       , iMandatory = True
                       }
                     , nfiUnit = SingleUnit "%"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Institutional"
-                      , iNumbering = NoNumbering
                       , iIdent = Just "storage-provider-institutional"
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
                       , iRules = [storageSumRule, NumValueRule (\n -> n >= 0 && n <= 100)]
                       , iMandatory = True
                       }
                     , nfiUnit = SingleUnit "%"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "External Provider"
-                      , iNumbering = NoNumbering
                       , iIdent = Just "storage-provider-external"
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
                       , iRules = [storageSumRule, NumValueRule (\n -> n >= 0 && n <= 100)]
                       , iMandatory = True
                       }
                     , nfiUnit = SingleUnit "%"
                     }
                   , NumberFI
-                    { nfiDescriptor = FIDescriptor
+                    { nfiDescriptor = defaultFIDescriptor
                       { iLabel = Just "Sum"
-                      , iNumbering = NoNumbering
                       , iIdent = Just "storage-providers-sum"
-                      , iTags = []
-                      , iShortDescription = Nothing
-                      , iLongDescription = Nothing
-                      , iLink = Nothing
                       , iRules = [ReadOnlyRule, NumValueRule (== 100)]
                       , iMandatory = True
                       }

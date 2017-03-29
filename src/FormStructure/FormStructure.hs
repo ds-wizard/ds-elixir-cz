@@ -16,7 +16,7 @@ import           FormStructure.Submit
 
 formItems :: [FormItem]
 formItems = prepareForm
-             [ 
+             [
               ch0GeneralInformation
             , ch1DataProduction
             , ch2DataProcessing
