@@ -1,5 +1,5 @@
 #!/bin/bash
 
-killall Elixir-cz.fairdata.solutions
+killall elixir-cz.fairdata.solutions
 cd /srv/ghc/elixir-cz.fairdata.solutions
-build/Elixir-cz.fairdata.solutions
+./elixir-cz.fairdata.solutions
