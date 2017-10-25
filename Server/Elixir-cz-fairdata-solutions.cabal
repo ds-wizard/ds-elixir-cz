@@ -1,0 +1,76 @@
+-- This file has been generated from package.yaml by hpack version 0.18.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           Elixir-cz-fairdata-solutions
+version:        0.1.0.0
+synopsis:       Initial project template from stack
+description:    Please see README.md
+category:       Web
+author:         Robert Pergl
+maintainer:     perglr@fit.cvut.cz
+copyright:      2017 Robert Pergl here
+license:        Apache-2.0
+build-type:     Simple
+cabal-version:  >= 1.10
+
+executable Elixir-cz-fairdata-solutions
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  other-extensions: OverloadedStrings CPP NamedFieldPuns RecordWildCards FlexibleInstances TypeSynonymInstances QuasiQuotes
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+      base
+    , utf8-string
+    , text
+    , bytestring
+    , mtl
+    , containers
+    , time
+    , random
+    , pwstore-fast
+    , blaze-markup
+    , blaze-html
+    , scotty
+    , wai-middleware-static
+    , wai-extra
+    , postgresql-simple
+    , resource-pool
+    , raw-strings-qq
+  other-modules:
+      App
+      Config.Config
+      Config.Server.Config
+      Descriptions
+      FormEngine.FormContext
+      FormEngine.FormData
+      FormEngine.FormElement.AutoComplete
+      FormEngine.FormElement.FormElement
+      FormEngine.FormElement.Identifiers
+      FormEngine.FormElement.Rendering
+      FormEngine.FormElement.Tabs
+      FormEngine.FormElement.Updating
+      FormEngine.FormElement.Validation
+      FormEngine.FormItem
+      FormEngine.Functionality
+      FormEngine.JQuery
+      FormStructure.Chapter0
+      FormStructure.Chapter1
+      FormStructure.Chapter2
+      FormStructure.Chapter3
+      FormStructure.Chapter4
+      FormStructure.Chapter5
+      FormStructure.Chapter6
+      FormStructure.Chapter7
+      FormStructure.Common
+      FormStructure.Countries
+      FormStructure.FormStructure
+      FormStructure.Submit
+      FormStructure.Usage
+      Model.Respondent
+      Model.Result
+      Modes
+      PageGenerator
+      Texts
+  default-language: Haskell2010

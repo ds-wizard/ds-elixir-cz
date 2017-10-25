@@ -1,14 +1,18 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-import           FormItem
-import           FormStructure.FormStructure as Structure
-import           FormData
-import           Text.Show.Pretty
-import           Data.ByteString.Char8 (ByteString, pack)
-import           Debug.Hood.Observe
+module Main where
+
+import Haste.DOM
+import           JQuery
 
 main :: IO ()
-main = do
-  let fieldInfos = getFieldInfos Structure.formItems
-  runO $ putStrLn $ ppShow $ fieldInfos
+main = ready $ do
+  maybeForm <- elemById "m_questionnaire_form"
+  case maybeForm of
+    Nothing -> dumptIO "no form selected"
+    Just form -> do
+      time "newElem"
+      mapM_ (\i -> do e <- newElem "p"; appendChild form e) [1..100] 
+      timeEnd "newElem"
+      dumptIO "end"
   return ()

@@ -1,3 +1,3 @@
 [submodule "src/Client/FormEngine"]
-	path = src/Client/FormEngine
+	path = FormEngine
 	url = git@github.com:DataStewardshipPortal/ds-form-engine.git

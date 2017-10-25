@@ -2,91 +2,97 @@
 
 module Main where
 
-import           Data.Monoid
-import           Control.Monad.IO.Class (MonadIO)
-import           Data.Text.Lazy (toStrict, pack)
-import           Text.Blaze.Html.Renderer.Text
-import           Web.Spock.Safe as W
-import           Network.Wai.Middleware.Static as M
-import           Network.Wai.Middleware.RequestLogger
-import qualified Database.PostgreSQL.Simple as PG
+import           Prelude
+import           Control.Monad
+import           Data.Maybe (fromMaybe, isNothing, catMaybes)
+import           Text.Read (readMaybe)
 
-import           Config.Config
-import           Config.Server.Config
+import           Haste
+import           Haste.JSString (pack)
+import           Haste.Ajax
+import           Haste.Foreign (export)
 
+import           Config.Config (respondentKeyFieldId, respondentKeyFieldName)
 import           FormStructure.FormStructure as Structure
+import           Overlay
+import           Page
+import           FormEngine.JQuery
 import           FormEngine.FormData
-import qualified Modes
-import           Model.Respondent as R
-import           Model.Result as U
-import           PageGenerator (renderPage)
---import           Text.Show.Pretty
+import           FormEngine.FormElement.FormElement as Element
+import           FormEngine.FormElement.Identifiers
+import           Form
+--import           About
+import           DiagramDecorator
+
+scrollHandler :: [FormElement] -> Handler
+scrollHandler tabGroup _ = do
+  let paneSels = getPanesSelectors tabGroup
+  visiblePaneSels <- filterM (select >=> isVisible) paneSels
+  unless (null visiblePaneSels) $ do
+    visiblePane <- select (head visiblePaneSels)
+    windowTop <- getWindow >>= getScrollTop
+    divTop <- getTop visiblePane
+    let delta = windowTop - divTop
+    when (delta > 0) $ do
+      _ <- setCss "margin-top" (toPx delta) visiblePane
+      return ()
+  where
+   getPanesSelectors :: [FormElement] -> [ElementSelector]
+   getPanesSelectors = map (("#" ++) . descSubpaneId)
+
+resizeHandler :: Handler
+resizeHandler _ = do
+  let paneSel = ".desc-subpane"
+  winWidth <- getWindow >>= getWidth
+  _ <- select paneSel >>= setWidth (winWidth - 790)
+  _ <- select ".svg-help" >>= setWidth (winWidth - 795)
+  return ()
+
+getRespondentKey :: IO String
+getRespondentKey = selectById respondentKeyFieldId >>= getVal
 
 main :: IO ()
-main = do
-  --pool <- createPool (cb_createConn pcconn) (cb_destroyConn pcconn)
-  --                  (pc_stripes poolCfg) (pc_keepOpenTime poolCfg)
-  --                  (pc_resPerStripe poolCfg)
-  runSpock port $ spock (defaultSpockCfg Nothing dbConn ()) $ subcomponent "/" $ do -- why the hell the following line does not work?
-  --runSpock port $ spock (defaultSpockCfg Nothing dbConn ()) $ subcomponent (W.static (show baseURL)) $ do
-    middleware M.static
-    middleware logStdoutDev
-    get root rootHandler
-    get "wrong" wrongRespondentHandler
-    post "submit" submitHandler
-    get "submitted" submittedHandler
-    post "api/getData" getDataHandler
+main = ready $ do
+  export "overlay" overlay
+  export "toVision" toVision
+  export "toAction" toAction
+  export "toLifecycle" toLifecycle
+  export "toData" toData
+  export "toRoles" toRoles
+  export "toMQuestionnaire" toMQuestionnaire
+  export "toTQuestionnaire" toTQuestionnaire
+  _ <- select "#svg_raw" >>= onLoad tinkerDiagSvgRaw
+  _ <- select "#svg_primary" >>= onLoad tinkerDiagSvgPrimary
+  _ <- select "#svg_secondary" >>= onLoad tinkerDiagSvgSecondary
+  _ <- select "#svg_public" >>= onLoad tinkerDiagSvgPublic
+  _ <- select "#svg_producer" >>= onLoad tinkerDiagSvgProducer
+  _ <- select "#svg_expert" >>= onLoad tinkerDiagSvgExpert
+  _ <- select "#svg_consumer" >>= onLoad tinkerDiagSvgConsumer
+  _ <- select "#svg_curator" >>= onLoad tinkerDiagSvgCurator
+  _ <- select "#svg_custodian" >>= onLoad tinkerDiagSvgCustodian
+  _ <- select "#svg_steward" >>= onLoad tinkerDiagSvgSteward
+  _ <- select "#svg_manager" >>= onLoad tinkerDiagSvgManager
+  _ <- select "#svg_investigator" >>= onLoad tinkerDiagSvgInvestigator
+  respondentKeyVal <- getRespondentKey
+  ajaxRequest POST "api/getData" [(pack respondentKeyFieldName :: JSString, pack respondentKeyVal :: JSString)] buildQuestionnaire
+    where
+    buildQuestionnaire :: Maybe String -> IO ()
+    buildQuestionnaire maybeDataString = do
+     -- dumptIO (fromMaybe "" maybeDataString)
+      let maybeFormData = readMaybe (fromMaybe "" maybeDataString) :: Maybe FormData
+      let tabMaybes = map (Element.makeChapter maybeFormData) Structure.formItems
+      if any isNothing tabMaybes then do
+        errorIO "Error generating tabs"
+        return ()
+      else do
+        let tabs = catMaybes tabMaybes
+        time "Generate"
+        generateQuestionnaire tabs
+        timeEnd "Generate"
+        _ <- getWindow >>= onScroll (scrollHandler tabs)
+        _ <- getWindow >>= onResize resizeHandler
+        _ <- getWindow >>= resize
+        toVision ()
+        return ()
 
-rootHandler :: ActionCtxT ctx (WebStateM PG.Connection b ()) a
-rootHandler = do
-    ps <- params
-    let maybeRespondentKey = lookup respondentKeyFieldName ps
-    case maybeRespondentKey of
-      Nothing -> html $ toStrict $ renderHtml $ renderPage Modes.ReadOnly
-      Just respondentKey -> do
-        maybeRespondent <- runQuery $ getRespondent respondentKey
-        case maybeRespondent of
-          Nothing -> html $ toStrict $ renderHtml $ renderPage Modes.WrongRespondent
-          Just respondent -> html $ toStrict $ renderHtml $ renderPage (Modes.Filling respondent)
 
-wrongRespondentHandler :: MonadIO m => ActionCtxT ctx m a
-wrongRespondentHandler = html $ toStrict $ renderHtml $ renderPage Modes.WrongRespondent
-
-submitHandler :: ActionCtxT ctx (WebStateM PG.Connection b ()) a
-submitHandler = do
-  ps <- params
-  let maybeRespondentKey = lookup respondentKeyFieldName ps
-  case maybeRespondentKey of
-    Nothing -> redirect $ baseURL <> "wrong"
-    Just respondentKey -> do
-      maybeRespondent <- runQuery $ getRespondent respondentKey
-      case maybeRespondent of
-        Nothing -> redirect $ baseURL <> "wrong"
-        Just respondent -> do
-          let fieldValues = map (getValue ps) (getFieldInfos Structure.formItems)
-          mapM_ (storeValue respondent) fieldValues
-          redirect $ baseURL <> "submitted"
-  where
-    getValue ps (name1, text1) = (name1, text1, lookup name1 ps)
-    storeValue :: Respondent -> FieldValue -> ActionCtxT ctx (WebStateM PG.Connection b ()) ()
-    storeValue respondent (name1, text1, value1) = do
-      resId <- runQuery $ resultId respondent name1
-      _ <- if resId == 0 then
-        runQuery $ insertResult respondent name1 text1 value1
-      else
-        runQuery $ updateResult respondent name1 value1
-      _ <- runQuery $ R.updateSubmission respondent
-      return ()
-
-submittedHandler :: ActionCtxT ctx (WebStateM PG.Connection b ()) a
-submittedHandler =  html $ toStrict $ renderHtml $ renderPage Modes.Submitted
-
-getDataHandler :: ActionCtxT ctx (WebStateM PG.Connection b ()) a
-getDataHandler = do
-  ps <- params
-  let maybeRespondentKey = lookup respondentKeyFieldName ps
-  case maybeRespondentKey of
-    Nothing -> W.text ""
-    Just respondentKey -> do
-      formData <- runQuery $ getResultsForRespondent respondentKey
-      W.text $ toStrict $ pack $ show $ values2Data formData

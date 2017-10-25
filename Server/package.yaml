@@ -1,0 +1,45 @@
+name: Elixir-cz-fairdata-solutions
+version: '0.1.0.0'
+synopsis: Initial project template from stack
+description: Please see README.md
+category: Web
+author: Robert Pergl
+maintainer: perglr@fit.cvut.cz
+copyright: 2017 Robert Pergl here
+license: Apache-2.0
+github:
+other-extensions:
+- OverloadedStrings
+- CPP
+- NamedFieldPuns
+- RecordWildCards
+- FlexibleInstances
+- TypeSynonymInstances
+- QuasiQuotes
+ghc-options:
+- -threaded
+- -rtsopts
+- -with-rtsopts=-N
+- -Wall
+dependencies:
+- base
+- utf8-string
+- text
+- bytestring
+- mtl
+- containers
+- time
+- random
+- pwstore-fast
+- blaze-markup
+- blaze-html
+- scotty
+- wai-middleware-static
+- wai-extra
+- postgresql-simple
+- resource-pool
+- raw-strings-qq
+executables:
+  Elixir-cz-fairdata-solutions:
+    main: Main.hs
+    source-dirs: app
