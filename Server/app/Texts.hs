@@ -5,7 +5,7 @@ module Texts where
 
 import Data.Monoid ((<>))
 import           Text.RawString.QQ
-import           Text.Blaze.Html5 (Html, (!)) 
+import           Text.Blaze.Html5 (Html, (!))
 import qualified Text.Blaze.Html5 as H
 import           Text.Blaze.Html5.Attributes as A
 
@@ -26,7 +26,7 @@ vision = H.preEscapedString [r|
             </p>
             <ul>
               <li>Collect and provide the information about bioinformatics data produced.</li>
-              <li>Help the data producers to take care about their data (a.k.a. Data Stewardship).</li>
+              <li>Help the data producers to take care about their data: <a href='https://en.wikipedia.org/wiki/Data_steward'>Data Stewardship</a>.</li>
               <li>Help the data producers share their data with others.</li>
               <li>Connect and help interested parties to use the available data sources.</li>
             </ul>
@@ -39,7 +39,7 @@ vision = H.preEscapedString [r|
           </td>
           <td style="vertical-align: middle; text-align: right;">
             <img src="/static/img/goldmine.jpg" alt="gold mine"><br>
-            <a href="http://cliparts.co" style="font-size: 60%; color: gray;">Clip art image by Cliparts.co</a> 
+            <a href="http://cliparts.co" style="font-size: 60%; color: gray;">Clip art image by Cliparts.co</a>
           </td>
         </tr>
       </tbody>
@@ -61,7 +61,7 @@ actionSteps = H.preEscapedString [r|
             </ol>
             <p>
               Please help us by diligently answering the questions. Before you start, read the methodical guidelines in the following tabs.
-            </p>  
+            </p>
             <ul>
                 <li><strong><a href="#" onclick="Haste['toLifecycle']()">Life cycle</a></strong> tab presents a concise conceptual scheme of bioinformatics data.</li>
                 <li><strong><a href="#" onclick="Haste['toData']()">Data</a></strong> tab explains data categories and related terms.</li>
@@ -70,13 +70,13 @@ actionSteps = H.preEscapedString [r|
           </td>
           <td style="vertical-align: middle; text-align: right;">
             <img src="/static/img/goldmine.jpg" alt="gold mine"><br>
-            <a href="http://cliparts.co" style="font-size: 60%; color: gray;">Clip art image by Cliparts.co</a> 
+            <a href="http://cliparts.co" style="font-size: 60%; color: gray;">Clip art image by Cliparts.co</a>
           </td>
         </tr>
       </tbody>
     </table>
 |]
-  
+
 lifeCycle :: Html
 lifeCycle = H.preEscapedString [r|
     <table>
@@ -90,7 +90,7 @@ lifeCycle = H.preEscapedString [r|
           </td>
           <td style="vertical-align: middle; text-align: right;">
             <img src="/static/img/goldmine.jpg" width="200" style="padding-top: 200px;" alt="gold mine"><br>
-            <a href="http://cliparts.co" style="font-size: 60%; color: gray;">Clip art image by Cliparts.co</a> 
+            <a href="http://cliparts.co" style="font-size: 60%; color: gray;">Clip art image by Cliparts.co</a>
           </td>
         </tr>
       </tbody>
@@ -186,7 +186,7 @@ roles = H.preEscapedString [r|
   </ul>
 |]
 overlay1 :: Html
-overlay1 = do 
+overlay1 = do
   H.h3 "1. Data Production"
   H.p "The first step in acquiring data is its primary production. The produced data usually come from measurement devices such as NGS, Arrays, X-Ray, NMR or MassSpec. In this step, we do not apply any further processing."
   H.table ! A.class_ "table-text" $ do
@@ -208,7 +208,7 @@ overlay1 = do
 
 
 overlay2 :: Html
-overlay2 = do 
+overlay2 = do
   H.h3 "2. Data Processing"
   H.p ("Data produced in the first step are subsequently processed to " <> H.strong "prepare data for research" <> ". Processing means applying transformations on data such as data splitting, quality control and benchmarking, data filtering, annotating by metadata. data_processing is usually not the ultimate goal, it is done to prepare data for using in the next step. In rare situations, the processing may not be necessary for using the data, e.g. in collaboration projects.")
   H.p "Data processing may consist of several steps from the raw data to the first interoperable standard format of the data, which is suitable for general use, i.e. temporary internal formats are not considered."
@@ -232,7 +232,7 @@ overlay2 = do
           "Data steward"
 
 overlay3 :: Html
-overlay3 = do 
+overlay3 = do
   H.h3 "3. Data Usage"
   H.p ("In this step, the processed (ev. raw) data are used for their purpose like RNA-Seq, Chip-Seq, De-novo sequencing, X-Ray refinement or MS Masquot. Also, new data may be produced as a result of the analysis and usage. Such data differ from the data produced in stage 2, as they " <> H.strong "form a new level of knowledge" <> " (while the data processing results in stage 2 produce data on the same level of knowledge). This is distinguished by calling the data produced in this stage as \"Secondary data\".")
   H.table ! A.class_ "table-text" $ do
@@ -255,7 +255,7 @@ overlay3 = do
           "Data steward"
 
 overlay4 :: Html
-overlay4 = do 
+overlay4 = do
   H.h3 "4. Data Storage"
   H.p "Data are naturally stored in some form in each of the previous stages, usually as files on a hard drive. However, we are not interested in temporary auxiliary data storing before processing them. On the contrary, storing raw data in a more permanent way is generally not a good practice, data should be processed before storing them. Apart from mere saving files to disk, this may encompass a.o.:"
   H.ul $ do
@@ -272,7 +272,7 @@ overlay4 = do
       H.tr $ do
         H.th "Result of the stage:"
         H.td "Data are stored"
-      H.tr $ do 
+      H.tr $ do
         H.th "Involved roles:"
         H.td $ do
           _ <- "Data curator"
@@ -286,14 +286,14 @@ overlay4 = do
           "Data steward"
 
 overlay5 :: Html
-overlay5 = do 
+overlay5 = do
   H.h3 "5. Data Accessibility"
   H.p "Data are made available for the external users in this stage. The data may come from all the stages -- from raw data to the secondary data. Data availability means providing data in a suitable format via a technical solution. This may be:"
   H.ul $ do
     H.li "Data file available for download via http, ftp and similar protocols"
     H.li "Data server available for connecting for client applications, such as #TODO"
     H.li "Offering data through a web (REST) service"
-    H.li $ do 
+    H.li $ do
       _ <- "Offering data through a web application (e.g. "
       H.a ! A.href "http://www.proteinatlas.org/" $ "http://www.proteinatlas.org/"
       ")"
@@ -317,7 +317,7 @@ overlay5 = do
           "Data steward"
 
 overlay6 :: Html
-overlay6 = do 
+overlay6 = do
   H.h3 "6. Data management"
   H.p $  H.preEscapedString "Data management is the process focused on the long-term maintainability of data. It strives that the data are <a href=\"https://www.force11.org/group/fairgroup\">F.A.I.R.</a>, i.e. Findable, Accessible, Interoperable, Reusable. Data stewardship encompasses a.o.:"
   H.ul $ do
