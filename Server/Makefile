@@ -11,3 +11,7 @@ clean:
 
 run: all
 	stack exec Elixir-cz-fairdata-solutions
+
+update:
+	stack config set resolver lts
+
