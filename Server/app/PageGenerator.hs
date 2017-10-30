@@ -36,9 +36,7 @@ renderHead = H.head $ do
 
 renderBanner :: Html
 renderBanner = H.div ! A.id "banner" $ do
-  H.p ! A.class_ "title" $ do
-    H.a ! A.href "https://en.wikipedia.org/wiki/Data_steward" ! A.target "_blank" $ "Data stewardship"
-    H.span " action team"
+  H.p ! A.class_ "title" $ "Interoperability Platform"
   H.a ! A.href "https://www.elixir-czech.cz/" $ do
     H.img ! A.src (textValue $ staticURL <> "img/logo.jpg") ! A.id "logo" ! A.alt "Elixir logo"
 
@@ -74,8 +72,9 @@ renderFooter = H.div ! A.id "footer" ! A.class_ "stripe" $ do
         "Czech Republic"
       H.td ! A.style "text-align: center; " $ do
         H.h3 "Data stewardship action team"
-        H.a ! A.href "http://ccmi.fit.cvut.cz/en" $ H.img ! A.src (textValue $ staticURL <> "img/CCMi-logo.png") ! A.class_ "logo" ! A.alt "CCMi logo"
-        H.a ! A.href "http://fit.cvut.cz/en" $ H.img ! A.src (textValue $ staticURL <> "img/FITlogo-small.png") ! A.class_ "logo" ! A.alt "FIT logo"
+        H.a ! A.href "https://www.uochb.cz" $ H.img ! A.src (textValue $ staticURL <> "img/logo-uochb.png") ! A.class_ "logo" ! A.alt "FIT logo"
+        H.a ! A.href "http://ccmi.fit.cvut.cz/en" $ H.img ! A.src (textValue $ staticURL <> "img/logo-ccmi.png") ! A.class_ "logo" ! A.alt "CCMi logo"
+        H.a ! A.href "http://fit.cvut.cz/en" $ H.img ! A.src (textValue $ staticURL <> "img/logo-fit.png") ! A.class_ "logo" ! A.alt "FIT logo"
         H.br
         H.span "Contact: "
         H.a ! A.href "mailto:robert.pergl@fit.cvut.cz" $ "robert.pergl@fit.cvut.cz"
@@ -106,7 +105,7 @@ renderAcknowledgement = do
 
 renderPage :: Mode -> Html
 renderPage mode = do
-  H.docTypeHtml ! A.class_ "no-js" ! A.lang "" $ do
+  H.docTypeHtml ! A.class_ "no-js" ! A.lang "en" $ do
     renderHead
     H.body $ do
       H.div ! A.id "container" $ do
@@ -127,7 +126,8 @@ renderPage mode = do
             closeButton "message"
         renderTabs
         H.div ! A.id "banner-bottom" ! A.class_ "stripe stripe-thick" $ mempty
-        H.div ! A.class_ "inside" $ do
+        H.div ! A.id "loader" ! A.class_ "loader" $ "Rendering the Knowledge model..."
+        H.div ! A.id "inside" ! A.class_ "inside" $ do
           visionPane
           actionPane
           lifeCyclePane

@@ -11,7 +11,7 @@ import           FormEngine.FormItem
 cost :: FormItem
 cost =
   NumberFI
-    { nfiDescriptor = defaultFIDescriptor { iLabel = Just "Cost for year 2015" }
+    { nfiDescriptor = defaultFIDescriptor { iLabel = Just "Cost for year 2016" }
     , nfiUnit = SingleUnit "thousand EUR"
     }
 

@@ -26,7 +26,7 @@ ch4DataStorage = Chapter
       , sgLevel = 0
       , sgItems = [ NumberFI
                     { nfiDescriptor = defaultFIDescriptor
-                      { iLabel = Just "Total volume produced in 2015"
+                      { iLabel = Just "Total volume produced in 2016"
                       , iIdent = Just "total-volume"
                       , iRules = [ReadOnlyRule]
                       }
@@ -34,7 +34,7 @@ ch4DataStorage = Chapter
                     }
                   , NumberFI
                     { nfiDescriptor = defaultFIDescriptor
-                      { iLabel = Just "Total volume of data stored at the end of 2015"
+                      { iLabel = Just "Total volume of data stored at the end of 2016"
                       , iMandatory = True
                       }
                     , nfiUnit = MultipleUnit ["MB", "GB", "TB", "PB"]

@@ -36,7 +36,7 @@ ch2DataProcessing = Chapter
         inputVolumes :: FormItem
         inputVolumes = SimpleGroup
           { sgDescriptor = defaultFIDescriptor
-            { iLabel = Just "Input data (for 2015)"
+            { iLabel = Just "Input data (for 2016)"
             , iMandatory = True
             }
           , sgLevel = 0
@@ -67,7 +67,7 @@ ch2DataProcessing = Chapter
                         , sgLevel = 0
                         , sgItems = [ NumberFI
                                       { nfiDescriptor = defaultFIDescriptor
-                                        { iLabel = Just "For year 2015"
+                                        { iLabel = Just "For year 2016"
                                         }
                                       , nfiUnit = SingleUnit "thousand EUR"
                                       }
@@ -79,7 +79,7 @@ ch2DataProcessing = Chapter
         outputVolumes :: FormItem
         outputVolumes = SimpleGroup
           { sgDescriptor = defaultFIDescriptor
-            { iLabel = Just "Output data volumes (for 2015)"
+            { iLabel = Just "Output data volumes (for 2016)"
             , iMandatory = True
             }
           , sgLevel = 0
@@ -106,7 +106,7 @@ ch2DataProcessing = Chapter
           , sgLevel = 0
           , sgItems = [ NumberFI
                         { nfiDescriptor = defaultFIDescriptor
-                          { iLabel = Just "For year 2015"
+                          { iLabel = Just "For year 2016"
                           }
                         , nfiUnit = SingleUnit "thousand EUR"
                         }

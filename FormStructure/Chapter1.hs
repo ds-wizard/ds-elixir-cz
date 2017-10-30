@@ -31,7 +31,7 @@ ch1DataProduction = Chapter
         domains = SimpleGroup
           { sgDescriptor = defaultFIDescriptor
             { iLabel = Just "Type of data"
-            , iShortDescription = Just "(Estimated) volume of raw data produced inhouse in 2015"
+            , iShortDescription = Just "(Estimated) volume of raw data produced inhouse in 2016"
             , iMandatory = True
             }
           , sgLevel = 0
@@ -52,7 +52,7 @@ ch1DataProduction = Chapter
                                       }
                                     , NumberFI
                                       { nfiDescriptor = defaultFIDescriptor
-                                        { iLabel = Just "Cost for year 2015"
+                                        { iLabel = Just "Cost for year 2016"
                                         , iIdent = Just "raw-cost-genomics"
                                         , iShortDescription = Just "Rough estimation of FTEs + investments + consumables"
                                         , iRules = [costSumRule]
@@ -78,7 +78,7 @@ ch1DataProduction = Chapter
                                       }
                                     , NumberFI
                                       { nfiDescriptor = defaultFIDescriptor
-                                        { iLabel = Just "Cost for year 2015"
+                                        { iLabel = Just "Cost for year 2016"
                                         , iIdent = Just "raw-cost-proteomics"
                                         , iShortDescription = Just "Rough estimation of FTEs + investments + consumables"
                                         , iRules = [costSumRule]
@@ -111,7 +111,7 @@ ch1DataProduction = Chapter
                                       }
                                     , NumberFI
                                       { nfiDescriptor = defaultFIDescriptor
-                                        { iLabel = Just "Cost for year 2015"
+                                        { iLabel = Just "Cost for year 2016"
                                         , iIdent = Just "raw-cost-others"
                                         , iShortDescription = Just "Rough estimation of FTEs + investments + consumables"
                                         , iRules = [costSumRule]

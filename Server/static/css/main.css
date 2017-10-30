@@ -75,6 +75,7 @@ body {
 
 .inside {
     margin: 0 25px 25px 25px;
+    display: none;
 }
 
 .inside-bordered {
@@ -87,14 +88,14 @@ body {
     height: 150px;
     background-image: url(elixir-header.png);
     background-repeat: no-repeat;
-    background-position: top right; 
+    background-position: top right;
     margin-bottom: 10px;
 }
 
 .bar {
   padding: 5px 25px;
   margin: 0px 0px 20px 0px;
-  font-style: italic; 
+  font-style: italic;
 }
 
 .message {
@@ -124,9 +125,10 @@ body {
     color: white;
 }
 
-#logo {
-    margin-top: -20px;
-    padding-left: 24px;
+img#logo {
+  float: left;
+  max-height: 5em;
+  margin: 0.5em;
 }
 
 .stripe-thick {
@@ -154,13 +156,14 @@ body {
     border-radius: 0;
 }
 
+div#footer td img.logo {
+  max-height: 5em;
+  margin: 0.5em;
+}
+
 .footer-table {
     width: 100%;
     font-size: 90%;
-}
-
-.logo {
-    margin: 5px;
 }
 
 .colophon-box {
@@ -216,23 +219,19 @@ ul.nav > li > a:hover {
     cursor: pointer;
 }
 
-
-.link {
-    color: #436976;
-    text-decoration: none;
-}
-
-.link:hover {
-    text-decoration: underline;
-
 }/* General Elements {{{2 ============================================================== */
 
 a {
-    color: #436976;
+    color: #6363FE;
     text-decoration: none;
 }
 
-a:hover {
+.link {
+    color: #6363FE;
+    text-decoration: none;
+}
+
+a:hover, .link:hover {
     text-decoration: underline;
 }
 
@@ -265,7 +264,7 @@ h4 {
 
 td, th {
     display: table-cell;
-    vertical-align: top; 
+    vertical-align: top;
     padding: 4px;
 }
 
@@ -274,7 +273,7 @@ td, th {
 }
 
 .table-text tr {
-  border-bottom: 1px #ccc solid 
+  border-bottom: 1px #ccc solid
 }
 
 .table-text td {
@@ -293,7 +292,7 @@ input, textarea {
   border-radius:3px;
   border-style:ridge;
   background-color: #FFFBFB;
-} 
+}
 
 input[type="text"], input[type="email"], textarea {
   width: 300px;
@@ -326,6 +325,12 @@ input[type="submit"], .submit {
 
 label {
   line-height : 20px;
+}
+
+p.note {
+    border: 2px solid #FA7849;
+    border-radius: 3px;
+    padding: 5px;
 }
 
 /* Special Elements {{{2 ============================================================== */
@@ -544,3 +549,47 @@ label {
         page-break-after: avoid;
     }
 }/*}}}*/
+
+// Loading spinner
+
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+.loader {
+  margin: 60px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(13, 12, 12, 0.2);
+  border-right: 1.1em solid rgba(13, 12, 12, 0.2);
+  border-bottom: 1.1em solid rgba(13, 12, 12, 0.2);
+  border-left: 1.1em solid #0d0c0c;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

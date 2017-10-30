@@ -17,6 +17,9 @@ import           DiagramDecorator
 import           Config.Config (staticURL)
 --import Haste.DOM
 
+formJq :: IO JQuery
+formJq = selectById "m_questionnaire_form"
+
 chapterDiagLoadHandler :: FormElement -> Handler
 chapterDiagLoadHandler chapterElem _ =
   --  resizeDescriptions
@@ -24,11 +27,13 @@ chapterDiagLoadHandler chapterElem _ =
 
 generateQuestionnaire :: [FormElement] -> IO ()
 generateQuestionnaire tabs = do
-  formJq <- select "#m_questionnaire_form"
   let allTabs = aboutTab : tabs
-  _ <- renderTabGroup allTabs (aboutTabPaneJq : tabsContentsJq tabs) formJq
+  _ <- formJq >>= renderTabGroup allTabs (aboutTabPaneJq : tabsContentsJq tabs)
   _ <- selectTab 0 allTabs
   fireClicks
+  _ <- selectById "inside" >>= appearJq
+  _ <- selectById "loader" >>= disappearJq
+  return ()
   where
     tabsContentsJq :: [FormElement] -> [IO JQuery]
     tabsContentsJq = map makePaneJq
@@ -111,12 +116,15 @@ aboutTabPaneJq = select "\
 \    <p>\
 \      Its completion should take no more than 15 minutes. If you do not know exact answer, provide your best qualified guess.\
 \    </p>\
+\    <p class='note'>\
+\      The questionnaire works correctly in <a href='https://www.google.com/chrome/browser/desktop/index.html' target='_blank'>Google Chrome</a> and <a href='https://www.mozilla.org' target='_blank'>Mozilla Firefox</a>.\
+\    </p>\
 \    <p>\
 \      For questions please contact <a href='mailto:robert.pergl@fit.cvut.cz'>robert.pergl@fit.cvut.cz</a>.\
 \    </p>\
 \    <br>\
 \    <p style='font-size: 90%; font-style: italic;'>\
-\      Version of this questionnaire: v2.2\
+\      Version of this questionnaire: v2.4\
 \    </p>\
 \  </div>\
 \ "

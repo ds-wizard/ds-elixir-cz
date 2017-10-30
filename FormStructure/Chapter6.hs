@@ -108,7 +108,7 @@ ch6DataManagement = Chapter
       , sgLevel = 0
       , sgItems = [ NumberFI
                     { nfiDescriptor = defaultFIDescriptor
-                      { iLabel = Just "For year 2015"
+                      { iLabel = Just "For year 2016"
                       }
                     , nfiUnit = SingleUnit "thousand EUR"
                     }
