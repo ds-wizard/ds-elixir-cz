@@ -98,7 +98,7 @@ renderAcknowledgement = do
     H.span ! A.class_ "colophon-text" $ " & "
     H.a ! A.href "http://haste-lang.org/" ! A.class_ "colophon-text" $ "Haste"
     H.span ! A.class_ "colophon-text" $ ", powered by "
-    H.a ! A.href "https://www.spock.li/" ! A.class_ "colophon-text" $ "Spock"
+    H.a ! A.href "https://github.com/scotty-web/scotty" ! A.class_ "colophon-text" $ "Scotty"
     H.img ! A.src (textValue $ staticURL <> "img/haskell.png") ! A.alt "Haskell logo"
 
 -- Pages
