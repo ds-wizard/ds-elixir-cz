@@ -12,6 +12,7 @@ module Page (
     ) where
 
 import           Prelude
+import           FormEngine.JQuery
 
 import           FormEngine.FormItem
 import           FormEngine.FormElement.FormElement
@@ -97,23 +98,50 @@ tQuestionnaireTab = ChapterElem
   , visited = False
   }
 
+controlPanelId :: String
+controlPanelId = "control-panel"
+
+hideControlPanel :: IO ()
+hideControlPanel = do
+  _ <- selectById controlPanelId >>= disappearJq
+  return ()
+
+showControlPanel :: IO ()
+showControlPanel = do
+  _ <- selectById controlPanelId >>= appearJq
+  return ()
+
 toVision :: () -> IO ()
-toVision _ = toTab visionTab pageTabGroup
+toVision _ = do
+  hideControlPanel
+  toTab visionTab pageTabGroup
 
 toAction :: () -> IO ()
-toAction _ = toTab actionTab pageTabGroup
+toAction _ = do
+  hideControlPanel
+  toTab actionTab pageTabGroup
 
 toLifecycle :: () -> IO ()
-toLifecycle _ = toTab lifecycleTab pageTabGroup
+toLifecycle _ = do
+  hideControlPanel
+  toTab lifecycleTab pageTabGroup
 
 toData :: () -> IO ()
-toData _ = toTab dataTab pageTabGroup
+toData _ = do
+  hideControlPanel
+  toTab dataTab pageTabGroup
 
 toRoles :: () -> IO ()
-toRoles _ = toTab rolesTab pageTabGroup
+toRoles _ = do
+  hideControlPanel
+  toTab rolesTab pageTabGroup
 
 toMQuestionnaire :: () -> IO ()
-toMQuestionnaire _ = toTab mQuestionnaireTab pageTabGroup
+toMQuestionnaire _ = do
+  showControlPanel
+  toTab mQuestionnaireTab pageTabGroup
 
 toTQuestionnaire :: () -> IO ()
-toTQuestionnaire _ = toTab tQuestionnaireTab pageTabGroup
+toTQuestionnaire _ = do
+  hideControlPanel
+  toTab tQuestionnaireTab pageTabGroup

@@ -23,6 +23,7 @@ import           FormEngine.FormElement.Identifiers
 import           Form
 --import           About
 import           DiagramDecorator
+import qualified Actions
 
 scrollHandler :: [FormElement] -> Handler
 scrollHandler tabGroup _ = do
@@ -53,6 +54,7 @@ getRespondentKey = selectById respondentKeyFieldId >>= getVal
 
 main :: IO ()
 main = ready $ do
+  Actions.doExports
   export "overlay" overlay
   export "toVision" toVision
   export "toAction" toAction

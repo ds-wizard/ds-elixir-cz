@@ -16,6 +16,11 @@ import           Modes
 import qualified Texts
 import           Model.Respondent as R
 
+import qualified Bridge as B
+
+{-# ANN module ("HLint: ignore Redundant do" :: String) #-}
+{-# ANN module ("HLint: ignore Use camelCase" :: String) #-}
+
 renderOverlay :: T.Text -> Html -> Html
 renderOverlay elemId content = do
   H.div ! A.id (H.toValue elemId) ! A.class_ "overlay" ! A.onclick fn $ do
@@ -39,6 +44,26 @@ renderBanner = H.div ! A.id "banner" $ do
   H.p ! A.class_ "title" $ "Interoperability Platform"
   H.a ! A.href "https://www.elixir-czech.cz/" $ do
     H.img ! A.src (textValue $ staticURL <> "img/logo.jpg") ! A.id "logo" ! A.alt "Elixir logo"
+
+renderControlPanel :: Mode -> Html
+renderControlPanel mode = do
+  H.div ! A.id "control-panel" ! A.class_ "control-panel" $ do
+    case mode of
+        ReadOnly -> nonSaveable
+        WrongRespondent -> nonSaveable
+        Filling _ -> saveable
+        Submitted -> nonSaveable
+    H.div ! A.id (H.toValue B.infoBarId) ! A.class_ "info-bar" $ "Data not saved"
+    where
+    saveable = do
+      H.button ! A.class_ "action-button" ! A.onclick (textValue $ T.pack $ B.call0 B.SavePlan) $ do
+        H.img ! A.class_ "action-icon" ! A.src (textValue $ staticURL <> "img/save.png") ! A.alt "Save the questionnaire"
+        H.span "Save"
+    nonSaveable = do
+      H.div ! A.class_ "control-panel-label no-plan" $ "No key provided"
+      H.button ! A.class_ "action-button action-button-disabled" $ do
+        H.img ! A.class_ "action-icon action-icon-disabled" ! A.src (textValue $ staticURL <> "img/save.png") ! A.alt "Save the plan"
+        H.span "Save"
 
 renderTabs :: Html
 renderTabs = H.ul ! A.class_ "nav mainNav" $ do
@@ -110,6 +135,7 @@ renderPage mode = do
     H.body $ do
       H.div ! A.id "container" $ do
         renderBanner
+        renderControlPanel mode
         case mode of
           ReadOnly -> H.div ! A.class_ "bar error" $ "To be able to submit your data, please apply for a respondent key @ robert.pergl@fit.cvut.cz"
           WrongRespondent ->  H.div ! A.class_ "bar error" $ do
@@ -148,7 +174,7 @@ renderPage mode = do
     rolesPane = H.div ! A.id "pane_500" ! A.style "display: none;" $ Texts.roles
     mFormHolderPane =
       H.div ! A.id "pane_600" ! A.style "display: none;" $ do
-        H.form ! A.id "m_questionnaire_form" ! A.method "post" ! A.action "submit"  $ do
+        H.form ! A.id (H.toValue B.formId) ! A.method "post" ! A.action "submit"  $ do
           H.input ! A.type_ "hidden" ! A.id (textValue respondentKeyFieldId) ! A.name (textValue respondentKeyFieldName) ! A.value (textValue respondentKey)
         where
           respondentKey = case mode of

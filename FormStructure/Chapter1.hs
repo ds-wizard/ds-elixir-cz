@@ -150,7 +150,7 @@ financing :: FormItem
 financing = SimpleGroup
   { sgDescriptor = defaultFIDescriptor
     { iLabel = Just "Funding"
-    , iShortDescription = Just "Skip if you do not want to share"
+    , iShortDescription = Just "Relevant just in case cost > 0. Skip if you do not want to share"
     , iMandatory = True
     }
   , sgLevel = 0

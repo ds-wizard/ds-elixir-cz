@@ -33,7 +33,8 @@ routes pool = do
   W.middleware logStdoutDev
   W.get "/" (rootHandler pool)
   W.get "/wrong" wrongRespondentHandler
-  W.post "/submit" (submitHandler pool)
+  W.post "/save" (saveHandler pool)
+  W.post "/submit" (saveHandler pool)
   W.get "/submitted" submittedHandler
   W.post "/api/getData" (getDataHandler pool)
 
@@ -51,6 +52,34 @@ rootHandler pool = do
 
 wrongRespondentHandler :: Action
 wrongRespondentHandler = W.html $ renderHtml $ renderPage Modes.WrongRespondent
+
+saveHandler :: PGPool -> Action
+saveHandler pool = do
+  ps <- W.params
+  let maybeRespondentKey = lookup (TL.fromStrict respondentKeyFieldName) ps
+  case maybeRespondentKey of
+    Nothing -> W.text "No respondent key"
+    Just respondentKey -> do
+      maybeRespondent <- runQuery pool $ R.getRespondent $ TL.toStrict respondentKey
+      case maybeRespondent of
+        Nothing -> W.text "No respondent key"
+        Just respondent -> do
+          let fieldValues = map (getValue ps) (getFieldInfos Structure.formItems)
+          mapM_ (storeValue respondent) fieldValues
+          W.text "Data saved"
+  where
+    getValue :: [W.Param] -> FieldInfo -> FieldValue
+    getValue ps (name1, text1) = (name1, text1, lookup name1 ps)
+    storeValue :: R.Respondent -> FieldValue -> Action
+    storeValue respondent (name1, text1, value1) = do
+      resId <- runQuery pool $ resultId respondent $ TL.toStrict name1
+      _ <- if resId == 0 then
+        runQuery pool $ insertResult respondent (TL.toStrict name1) (TL.toStrict <$> text1) (TL.toStrict <$> value1)
+      else
+        runQuery pool $ updateResult respondent (TL.toStrict name1) (TL.toStrict <$> value1)
+      _ <- runQuery pool $ R.updateSubmission respondent
+      return ()
+
 
 submitHandler :: PGPool -> Action
 submitHandler pool = do

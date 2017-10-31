@@ -124,7 +124,7 @@ aboutTabPaneJq = select "\
 \    </p>\
 \    <br>\
 \    <p style='font-size: 90%; font-style: italic;'>\
-\      Version of this questionnaire: v2.4\
+\      Version of this questionnaire: v3.0\
 \    </p>\
 \  </div>\
 \ "

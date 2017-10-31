@@ -12,7 +12,6 @@ import           FormStructure.Chapter4
 import           FormStructure.Chapter5
 import           FormStructure.Chapter6
 import           FormStructure.Chapter7
-import           FormStructure.Submit
 
 formItems :: [FormItem]
 formItems = prepareForm
@@ -25,5 +24,4 @@ formItems = prepareForm
             , ch5DataAccessibility
             , ch6DataManagement
             , ch7Roles
-            , submitForm
              ]

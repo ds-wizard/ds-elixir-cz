@@ -148,6 +148,7 @@ financingInternal = SimpleGroup
   { sgDescriptor = defaultFIDescriptor
     { iLabel = Just "Funding"
     , iMandatory = True
+    , iShortDescription = Just "Relevant just in case cost > 0. Skip if you do not want to share"
     }
   , sgLevel = 0
   , sgItems = [ NumberFI
@@ -211,6 +212,7 @@ financingExternal = SimpleGroup
   { sgDescriptor = defaultFIDescriptor
     { iLabel = Just "Funding"
     , iMandatory = True
+    , iShortDescription = Just "Relevant just in case cost > 0. Skip if you do not want to share"
     }
   , sgLevel = 0
   , sgItems = [ NumberFI

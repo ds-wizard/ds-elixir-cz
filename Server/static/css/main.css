@@ -423,6 +423,88 @@ p.note {
 .svg-help {
     width: 290px;
   }
+
+/* Control Panel {{{2 ============================================================== */
+
+.control-panel {
+  position: fixed;
+  top: 280px;
+  right: 80px;
+  margin-top: 10px;
+  padding: 0 10px;
+  border: 1px solid #FA7849;
+  border-radius: 3px;
+  background: white;
+  opacity: 0.8;
+  display: none;
+}
+.control-panel-label {
+  padding-top: 11px;
+  vertical-align: center;
+}
+
+.no-plan {
+  font-style: italic;
+}
+
+.action-button-common {
+  padding: 5px;
+  margin: 5px;
+  float: left;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+}
+.action-button {
+  padding: 5px;
+  margin: 5px;
+  float: left;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  background: white;
+  color: #4d4948;
+}
+.action-button span {
+    padding-left: 5px;
+}
+.action-button-hover {
+  padding: 5px;
+  margin: 5px;
+  float: left;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  background: #FA7849;
+  color: white;
+}
+.action-button:hover {
+  padding: 5px;
+  margin: 5px;
+  float: left;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  background: #FA7849;
+  color: white;
+}
+.action-button-disabled:hover {
+  cursor: default;
+  background: white;
+}
+.action-button-disabled:hover span{
+    color: #4d4948;
+    background: white;
+}
+.action-icon-disabled {
+  opacity: 0.5;
+}
+
+.info-bar {
+    text-decoration: italic;
+}
+
+
 /* =========================================================================={{{1
    Media Queries
    ========================================================================== */

@@ -40,6 +40,7 @@ executable Elixir-cz-fairdata-solutions
     , raw-strings-qq
   other-modules:
       App
+      Bridge
       Config.Config
       Config.Server.Config
       Descriptions
@@ -66,7 +67,6 @@ executable Elixir-cz-fairdata-solutions
       FormStructure.Common
       FormStructure.Countries
       FormStructure.FormStructure
-      FormStructure.Submit
       FormStructure.Usage
       Model.Respondent
       Model.Result
