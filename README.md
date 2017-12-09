@@ -1,6 +1,6 @@
 # ds-elixir-cz
 
-http://elixir-cz.fairdata.solution web portal
+http://elixir-cz.fairdata.solutions web portal
 
 Built with support of
 
